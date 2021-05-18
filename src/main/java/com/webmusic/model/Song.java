@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +23,13 @@ public class Song {
     private String lyrics;
     private String filename;
     @ManyToMany
-    private List<Singer> singers;
+    private Collection<Singer> singers;
     @ManyToOne
     private Album album;
     @ManyToMany
-    private List<Genre> genres;
+    private Collection<Genre> genres;
+    @ManyToMany
+    private Collection<Playlist> playlists;
+//    @OneToOne
+//    private User user;
 }

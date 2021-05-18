@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,8 @@ public class Singer {
     private String name;
     private Date date;
     private String description;
-    @ManyToMany
-    private List<Song> songs;
+    @ManyToMany(mappedBy = "singers")
+    private Collection<Song> songs;
+    //    @OneToOne
+//    private User user;
 }
