@@ -1,6 +1,8 @@
 package com.webmusic.service.album;
 
 import com.webmusic.model.Album;
+import com.webmusic.repository.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -8,24 +10,31 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AlbumService implements IAlbumService{
+public class AlbumService implements IAlbumService {
+    private AlbumRepository albumRepository;
+
+    @Autowired
+    public AlbumService(AlbumRepository albumRepository) {
+        this.albumRepository = albumRepository;
+    }
+
     @Override
     public Page<Album> getAll(Pageable pageable) {
-        return null;
+        return albumRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Album> findById(Long id) {
-        return null;
+        return albumRepository.findById(id);
     }
 
     @Override
     public Album save(Album album) {
-        return null;
+        return albumRepository.save(album);
     }
 
     @Override
     public void delete(Long id) {
-
+        albumRepository.deleteById(id);
     }
 }
