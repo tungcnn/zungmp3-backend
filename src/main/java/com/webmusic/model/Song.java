@@ -27,6 +27,4 @@ public class Song {
     private Album album;
     @ManyToMany
     private List<Genre> genres;
-    @ManyToMany
-    private List<Playlist> playlists;
 }
