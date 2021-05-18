@@ -32,7 +32,7 @@ public class SongController {
         return new ResponseEntity<>(NOT_FOUND);
     }
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public ResponseEntity<Page<Song>> getAll(Pageable page) {
         Page<Song> getAllSong = songService.getAll(page);
         return new ResponseEntity<>(getAllSong, OK);
