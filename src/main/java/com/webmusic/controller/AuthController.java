@@ -5,6 +5,7 @@ import com.webmusic.model.User;
 import com.webmusic.service.jwt.JwtService;
 import com.webmusic.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +39,14 @@ public class AuthController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername()).get();
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getFullName(), userDetails.getAuthorities()));
+    }
+    @PostMapping("/users/create")
+    public ResponseEntity<Void> registerUser(@RequestBody User user, UriComponentsBuilder uriBuilder){
+        System.out.println("Register User"+user.getUsername());
+        userService.save(user);
+        HttpHeaders headers= new HttpHeaders();
+        headers.setLocation(uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers,HttpStatus.CREATED);
     }
 
     @GetMapping("/hello")
