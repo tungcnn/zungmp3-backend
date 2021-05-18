@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class SongService implements ISongService{
+public class SongService implements ISongService {
+    private SongRepository songRepository;
 
     @Autowired
-    private SongRepository songRepository;
+    public SongService(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
 
     @Override
     public Page<Song> getAll(Pageable pageable) {
