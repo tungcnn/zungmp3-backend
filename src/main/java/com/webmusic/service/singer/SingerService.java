@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SingerService implements ISingerService{
     @Override
@@ -13,7 +15,7 @@ public class SingerService implements ISingerService{
     }
 
     @Override
-    public Singer findById(Long id) {
+    public Optional<Singer> findById(Long id) {
         return null;
     }
 
@@ -23,7 +25,7 @@ public class SingerService implements ISingerService{
     }
 
     @Override
-    public Singer delete(Long id) {
-        return null;
+    public void delete(Long id) {
+
     }
 }
