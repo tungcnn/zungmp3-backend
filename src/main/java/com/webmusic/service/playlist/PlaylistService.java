@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlaylistService implements IPlaylistService{
     @Override
@@ -13,7 +15,7 @@ public class PlaylistService implements IPlaylistService{
     }
 
     @Override
-    public Playlist findById(Long id) {
+    public Optional<Playlist> findById(Long id) {
         return null;
     }
 
@@ -23,7 +25,7 @@ public class PlaylistService implements IPlaylistService{
     }
 
     @Override
-    public Playlist delete(Long id) {
-        return null;
+    public void delete(Long id) {
+
     }
 }
