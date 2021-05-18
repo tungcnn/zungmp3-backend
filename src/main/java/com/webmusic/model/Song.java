@@ -5,23 +5,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "song")
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String lyrics;
-    @ManyToOne
-    private Singer singer;
+    private String filename;
+    @ManyToMany
+    private List<Singer> singers;
     @ManyToOne
     private Album album;
-    @ManyToOne
-    private Genre genre;
-    @ManyToOne
-    private Playlist playlist;
+    @ManyToMany
+    private List<Genre> genres;
+    @ManyToMany
+    private List<Playlist> playlists;
 }
