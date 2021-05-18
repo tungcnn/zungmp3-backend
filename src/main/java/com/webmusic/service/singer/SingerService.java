@@ -1,6 +1,8 @@
 package com.webmusic.service.singer;
 
 import com.webmusic.model.Singer;
+import com.webmusic.repository.SingerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -8,24 +10,31 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class SingerService implements ISingerService{
+public class SingerService implements ISingerService {
+    private SingerRepository singerRepository;
+
+    @Autowired
+    public SingerService(SingerRepository singerRepository) {
+        this.singerRepository = singerRepository;
+    }
+
     @Override
     public Page<Singer> getAll(Pageable pageable) {
-        return null;
+        return singerRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Singer> findById(Long id) {
-        return null;
+        return singerRepository.findById(id);
     }
 
     @Override
     public Singer save(Singer singer) {
-        return null;
+        return singerRepository.save(singer);
     }
 
     @Override
     public void delete(Long id) {
-
+        singerRepository.deleteById(id);
     }
 }
