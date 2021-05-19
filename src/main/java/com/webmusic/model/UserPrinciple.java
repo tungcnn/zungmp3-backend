@@ -3,7 +3,6 @@ package com.webmusic.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -11,19 +10,14 @@ import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
     private Long id;
-
     private String username;
-
     private String password;
-
     private String fullName;
-
     private String email;
-
     private Collection<? extends GrantedAuthority> roles;
 
-
-    public UserPrinciple(Long id, String username, String password, String fullName, String email, Collection<? extends GrantedAuthority> roles) {
+    public UserPrinciple(Long id, String username, String password, String fullName,
+                         String email, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -36,7 +30,6 @@ public class UserPrinciple implements UserDetails {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName())
         ).collect(Collectors.toList());
-
         return new UserPrinciple(
                 user.getId(),
                 user.getUsername(),
@@ -65,7 +58,6 @@ public class UserPrinciple implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {

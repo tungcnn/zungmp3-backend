@@ -2,7 +2,6 @@ package com.webmusic.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String fullName;
     private String email;
     @Column(unique = true,nullable = false)

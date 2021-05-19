@@ -1,10 +1,12 @@
 package com.webmusic.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 
 import java.util.Collection;
 
+@Data
 public class JwtResponse {
     private Long id;
     private String token;
@@ -29,4 +31,6 @@ public class JwtResponse {
         this.name = name;
         this.roles = roles;
     }
+
+
 }

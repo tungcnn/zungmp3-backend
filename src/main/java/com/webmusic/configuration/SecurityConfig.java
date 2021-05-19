@@ -1,7 +1,6 @@
 package com.webmusic.configuration;
 
 import com.webmusic.service.user.UserService;
-import com.webmusic.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,12 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/", "/api/login","/register").permitAll()
+                .antMatchers("/", "/api/**","/registration").permitAll()
                 .antMatchers("/users/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/guest/**").hasRole("GUEST")
-                .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll()
+                .antMatchers("/guest/**").hasRole("GUEST").anyRequest().authenticated()
+                .and().formLogin().permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutSuccessUrl("/")
