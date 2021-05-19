@@ -1,5 +1,6 @@
 package com.webmusic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class Song {
     private Album album;
     @ManyToMany
     private Collection<Genre> genres;
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(mappedBy = "songs")
     private Collection<Playlist> playlists;
 //    @OneToOne
 //    private User user;
