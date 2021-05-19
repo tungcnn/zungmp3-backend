@@ -23,6 +23,7 @@ public class Song {
     private String name;
     private String lyrics;
     private String filename;
+    private long views = 0;
     @ManyToMany
     private Collection<Singer> singers;
     @ManyToOne
