@@ -8,7 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,14 +22,14 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
 
     private String lyrics;
-
+@NotBlank(message = "Filename is mandatory")
     private String filename;
 
     private long views = 0;
