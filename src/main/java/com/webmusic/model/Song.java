@@ -1,13 +1,14 @@
 package com.webmusic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.NotBlank;
+import java.util.*;
 
 @Entity
 @Data
@@ -18,13 +19,35 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date releaseDate;
+
     private String lyrics;
+
     private String filename;
+
+    private long views = 0;
+
     @ManyToMany
-    private List<Singer> singers;
+    private Collection<Singer> singers;
+
     @ManyToOne
     private Album album;
+
     @ManyToMany
     private List<Genre> genres;
+
+    @ManyToOne
+    private Theme theme;
+
+    @ManyToOne
+    private Country country;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "songs")
+    private Collection<Playlist> playlists;
 }
