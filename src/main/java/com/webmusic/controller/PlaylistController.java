@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.DateTimeException;
 import java.util.Date;
+import java.util.List;
 
 
 @RestController
@@ -26,8 +27,10 @@ public class PlaylistController {
     private ISongService iSongService;
 
     @GetMapping
-    public ResponseEntity<Page<Playlist>> listPlayList(Pageable pageable){
-        return new ResponseEntity<>(playlistService.getAll(pageable), HttpStatus.OK);
+    public ResponseEntity<List<Playlist>> listPlayList(Pageable pageable){
+        Page<Playlist> playlists = playlistService.getAll(pageable);
+        List<Playlist> listPlaylists = playlists.getContent();
+        return new ResponseEntity<>(listPlaylists, HttpStatus.OK);
     }
 
     @PostMapping

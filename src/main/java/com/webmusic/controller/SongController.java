@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
@@ -33,9 +34,10 @@ public class SongController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Page<Song>> getAll(Pageable page) {
+    public ResponseEntity<List<Song>> getAll(Pageable page) {
         Page<Song> getAllSong = songService.getAll(page);
-        return new ResponseEntity<>(getAllSong, OK);
+        List<Song> songs = getAllSong.getContent();
+        return new ResponseEntity<>(songs, OK);
     }
 
     @PostMapping("/add")
