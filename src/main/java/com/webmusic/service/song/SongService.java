@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SongService implements ISongService {
     private SongRepository songRepository;
 
@@ -36,5 +38,10 @@ public class SongService implements ISongService {
     @Override
     public void delete(Long id) {
         songRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Song> findByNameContains(String name, Pageable pageable) {
+        return this.songRepository.findByNameContains(name , pageable);
     }
 }
