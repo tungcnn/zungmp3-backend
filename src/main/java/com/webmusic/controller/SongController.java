@@ -62,7 +62,15 @@ public class SongController {
         songService.delete(id);
         return new ResponseEntity<>(OK);
     }
+    @GetMapping("/top15")
+    public ResponseEntity<List<Song>> getTop15() {
+        return new ResponseEntity<>(songService.getTop15(), OK);
+    }
 
+    @GetMapping("/latest")
+    public ResponseEntity<List<Song>> getLatest() {
+        return new ResponseEntity<>(songService.getLastestSongs(), OK);
+    }
     @PostMapping("/search")
     public ResponseEntity<Page<Song>> findByName(@RequestBody Song song , Pageable pageable){
         if (song.getName()!= null || song.getName().equals("")) {
