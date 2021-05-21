@@ -29,4 +29,6 @@ public class Playlist extends BaseEntity {
     private User user;
 
     private Long views;
+
+    private String description;
 }
