@@ -9,10 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DateTimeException;
-import java.util.Date;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -34,7 +34,10 @@ public class PlaylistController {
     }
 
     @PostMapping
-    public ResponseEntity<Playlist> createPlayList(@RequestBody Playlist playlist){
+    public ResponseEntity<Playlist> createPlayList(@Valid @RequestBody Playlist playlist , BindingResult bindingResult){
+        if (bindingResult.hasFieldErrors()){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(playlistService.save(playlist),HttpStatus.CREATED);
     }
 
@@ -56,7 +59,10 @@ public class PlaylistController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Playlist> editPlayList(@RequestBody Playlist playlist , @PathVariable Long id){
+    public ResponseEntity<Playlist> editPlayList(@Valid @RequestBody Playlist playlist , @PathVariable Long id ,BindingResult bindingResult){
+        if (bindingResult.hasFieldErrors()){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
        Playlist editPlayList = playlistService.findById(id).get();
         if (playlistService.findById(id).isPresent()){
             playlist.setId(editPlayList.getId());

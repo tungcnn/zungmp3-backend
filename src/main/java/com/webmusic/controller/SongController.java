@@ -61,8 +61,11 @@ public class SongController {
 
     @PostMapping("/search")
     public ResponseEntity<Page<Song>> findByName(@RequestBody Song song , Pageable pageable){
-        Page<Song> songs = songService.findByNameContains(song.getName(),pageable);
-        List<Song> songList = songs.getContent();
-       return new ResponseEntity(songList , HttpStatus.OK);
+        if (song.getName()!= null || song.getName().equals("")) {
+            Page<Song> songs = songService.findByNameContains(song.getName(), pageable);
+            List<Song> songList = songs.getContent();
+            return new ResponseEntity(songList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(NOT_FOUND);
     }
 }
