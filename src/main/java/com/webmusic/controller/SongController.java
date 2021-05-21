@@ -5,9 +5,11 @@ import com.webmusic.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
@@ -54,5 +56,12 @@ public class SongController {
     public ResponseEntity<?> deleteSong(@PathVariable("id") Long id) {
         songService.delete(id);
         return new ResponseEntity<>(OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<Song>> findByName(@RequestBody Song song , Pageable pageable){
+        Page<Song> songs = songService.findByNameContains(song.getName(),pageable);
+        List<Song> songList = songs.getContent();
+       return new ResponseEntity(songList , HttpStatus.OK);
     }
 }

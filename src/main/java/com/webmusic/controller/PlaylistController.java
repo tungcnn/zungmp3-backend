@@ -11,8 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DateTimeException;
-import java.util.Date;
+import java.util.List;
 
 
 @RestController
@@ -27,7 +26,9 @@ public class PlaylistController {
 
     @GetMapping
     public ResponseEntity<Page<Playlist>> listPlayList(Pageable pageable){
-        return new ResponseEntity<>(playlistService.getAll(pageable), HttpStatus.OK);
+        Page<Playlist> playlists = playlistService.getAll(pageable);
+        List<Playlist> playLists = playlists.getContent();
+        return new ResponseEntity(playLists,HttpStatus.OK);
     }
 
     @PostMapping
@@ -36,12 +37,12 @@ public class PlaylistController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Playlist> deletePlayList(@PathVariable Long id){
+    public ResponseEntity<Void> deletePlayList(@PathVariable Long id){
         playlistService.delete(id);
-        return new ResponseEntity<>(playlistService.findById(id).get(),HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{id}/{id_song}")
+    @GetMapping("/{id}/{id_song}")
     public ResponseEntity<Song> addSongToPlayList(@PathVariable("id") Long id , @PathVariable("id_song") Long id_song){
         if (iSongService.findById(id_song).isPresent()){
             Song song = iSongService.findById(id_song).get();
@@ -52,11 +53,21 @@ public class PlaylistController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @PutMapping
-    public ResponseEntity<Playlist> editPlayList(@RequestBody Playlist playlist){
-        if (playlistService.findById(playlist.getId()).isPresent()){
+    @PutMapping("/{id}")
+    public ResponseEntity<Playlist> editPlayList(@RequestBody Playlist playlist , @PathVariable Long id){
+       Playlist editPlayList = playlistService.findById(id).get();
+        if (playlistService.findById(id).isPresent()){
+            playlist.setId(editPlayList.getId());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Playlist> getPlayListById(@PathVariable Long id){
+        if (playlistService.findById(id).isPresent()) {
+            return new ResponseEntity<>(playlistService.findById(id).get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

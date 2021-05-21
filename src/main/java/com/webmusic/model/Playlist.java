@@ -24,4 +24,6 @@ public class Playlist extends BaseEntity {
 
     @ManyToOne
     private User user;
+
+    private Long views;
 }
