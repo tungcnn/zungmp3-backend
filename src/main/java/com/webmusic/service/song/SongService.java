@@ -50,4 +50,7 @@ public class SongService implements ISongService {
     public List<Song> getLastestSongs() {
        return songRepository.getLatestSong();
     }
+    public Page<Song> findByNameContains(String name, Pageable pageable) {
+        return this.songRepository.findByNameContains(name , pageable);
+    }
 }
