@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,19 +43,22 @@ public class SongController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Song> addSong(@RequestBody Song song) {
+    public ResponseEntity<Song> addSong(@Valid @RequestBody Song song) {
         Song newSong = songService.save(song);
         return new ResponseEntity<>(newSong, CREATED);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Song> editSong(@RequestBody Song song) {
+    public ResponseEntity<Song> editSong(@Valid @RequestBody Song song) {
         Song editSong = songService.save(song);
         return new ResponseEntity<>(editSong, OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteSong(@PathVariable("id") Long id) {
+        if (id == null) {
+            return new ResponseEntity<>(NOT_FOUND);
+        }
         songService.delete(id);
         return new ResponseEntity<>(OK);
     }
