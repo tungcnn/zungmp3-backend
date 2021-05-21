@@ -39,4 +39,9 @@ public class SongService implements ISongService {
     public void delete(Long id) {
         songRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Song> findByNameContains(String name, Pageable pageable) {
+        return this.songRepository.findByNameContains(name , pageable);
+    }
 }

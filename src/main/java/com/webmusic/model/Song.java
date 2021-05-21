@@ -29,8 +29,11 @@ public class Song {
     private Date releaseDate;
 
     private String lyrics;
-@NotBlank(message = "Filename is mandatory")
-    private String filename;
+
+    @NotBlank(message = "Filename is mandatory")
+    private String url;
+
+    private String coverUrl;
 
     private long views = 0;
 
