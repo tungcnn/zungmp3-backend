@@ -28,7 +28,9 @@ public class Song {
 
     private String lyrics;
 
-    private String filename;
+    private String url;
+
+    private String coverUrl;
 
     private long views = 0;
 
