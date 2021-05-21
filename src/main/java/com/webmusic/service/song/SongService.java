@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,15 @@ public class SongService implements ISongService {
     @Override
     public void delete(Long id) {
         songRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Song> getTop15() {
+        return songRepository.getTop15();
+    }
+
+    @Override
+    public List<Song> getLastestSongs() {
+       return songRepository.getLatestSong();
     }
 }
