@@ -19,7 +19,7 @@ public class Album extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
