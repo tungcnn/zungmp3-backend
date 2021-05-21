@@ -35,9 +35,10 @@ public class SongController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Page<Song>> getAll(Pageable page) {
+    public ResponseEntity<List<Song>> getAll(Pageable page) {
         Page<Song> getAllSong = songService.getAll(page);
-        return new ResponseEntity<>(getAllSong, OK);
+        List<Song> songs = getAllSong.getContent();
+        return new ResponseEntity<>(songs, OK);
     }
 
     @PostMapping("/add")

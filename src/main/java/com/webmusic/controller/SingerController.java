@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
@@ -24,9 +25,10 @@ public class SingerController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Page<Singer>> getAllSinger(Pageable page) {
+    public ResponseEntity<List<Singer>> getAllSinger(Pageable page) {
         Page<Singer> getAll = singerService.getAll(page);
-        return new ResponseEntity<>(getAll, OK);
+        List<Singer> singers = getAll.getContent();
+        return new ResponseEntity<>(singers, OK);
     }
 
     @PostMapping("/add")
