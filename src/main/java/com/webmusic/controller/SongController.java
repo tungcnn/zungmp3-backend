@@ -42,6 +42,13 @@ public class SongController {
         return new ResponseEntity<>(songs, OK);
     }
 
+    @GetMapping("/all/{id}")
+    public ResponseEntity<List<Song>> getAllById(Pageable page, @PathVariable("id") Long id) {
+        Page<Song> getAllSong = songService.getSongByUser(id, page);
+        List<Song> songs = getAllSong.getContent();
+        return new ResponseEntity<>(songs, OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Song> addSong(@Valid @RequestBody Song song) {
         Song newSong = songService.save(song);

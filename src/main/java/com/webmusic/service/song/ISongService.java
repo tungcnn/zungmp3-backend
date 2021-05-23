@@ -11,4 +11,5 @@ public interface ISongService extends IGeneral<Song> {
     List<Song> getTop15();
     List<Song> getLastestSongs();
     Page<Song> findByNameContains(String name , Pageable pageable);
+    Page<Song> getSongByUser(Long id, Pageable pageable);
 }

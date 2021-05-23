@@ -43,8 +43,8 @@ public class Song {
     @ManyToOne
     private Album album;
 
-    @ManyToMany
-    private List<Genre> genres;
+    @ManyToOne
+    private Genre genre;
 
     @ManyToOne
     private Theme theme;
@@ -55,4 +55,7 @@ public class Song {
     @JsonIgnore
     @ManyToMany(mappedBy = "songs")
     private Collection<Playlist> playlists;
+
+    @ManyToOne
+    private User user;
 }

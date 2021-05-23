@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/", "/api/**","/api/login", "/api/registration", "/songs/**", "/playlists/**").permitAll()
+                .antMatchers("/", "/api/**","/api/login", "/api/registration", "/songs/**", "/playlists/**", "/themes/**", "/countries/**", "/genres/**").permitAll()
                 .antMatchers("/users/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/guest/**").hasRole("GUEST").anyRequest().authenticated()
@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
-//        http.csrf().disable();
-//        http.cors().disable();
+        http.csrf().disable();
+        http.cors().disable();
     }
 }

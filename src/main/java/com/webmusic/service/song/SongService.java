@@ -53,4 +53,9 @@ public class SongService implements ISongService {
     public Page<Song> findByNameContains(String name, Pageable pageable) {
         return this.songRepository.findByNameContains(name , pageable);
     }
+
+    @Override
+    public Page<Song> getSongByUser(Long id, Pageable pageable) {
+        return this.songRepository.getSongByUser(id, pageable);
+    }
 }
