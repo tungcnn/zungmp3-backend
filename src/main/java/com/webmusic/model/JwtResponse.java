@@ -11,26 +11,26 @@ public class JwtResponse {
     private Long id;
     private String token;
     private String type="Bearer";
-    private String username;
-    private String name;
+    private String email;
+    private String password;
     private Collection<? extends GrantedAuthority> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, String name, Collection<? extends GrantedAuthority> roles){
+    public JwtResponse(String accessToken, Long id, String email, String password, Collection<? extends GrantedAuthority> roles){
         this.token =accessToken;
-        this.username=username;
+        this.email=email;
         this.roles=roles;
-        this.name=name;
+        this.password=password;
         this.id=id;
     }
 
-    public JwtResponse(Long id, String token, String type, String username, String name, Collection<? extends GrantedAuthority> roles) {
-        this.id = id;
-        this.token = token;
-        this.type = type;
-        this.username = username;
-        this.name = name;
-        this.roles = roles;
-    }
+//    public JwtResponse(Long id, String token, String type, String username, String name, Collection<? extends GrantedAuthority> roles) {
+//        this.id = id;
+//        this.token = token;
+//        this.type = type;
+//        this.username = username;
+//        this.name = name;
+//        this.roles = roles;
+//    }
 
 
 }
