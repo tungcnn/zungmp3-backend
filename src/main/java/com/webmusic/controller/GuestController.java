@@ -17,9 +17,11 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
 @RequestMapping("/api")
 @CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 public class GuestController {
     @Autowired
     private UserService userService;
@@ -33,7 +35,7 @@ public class GuestController {
         Optional<User> username = userService.findByUsername(user.getUsername());
         if (!username.isPresent()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            Role role = roleService.findById(1L).get();
+            Role role = roleService.findById(2L).get();
             Set<Role> roles = new HashSet<>();
             roles.add(role);
             user.setRoles(roles);
@@ -49,7 +51,7 @@ public class GuestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role role = roleService.findById(1L).get();
+        Role role = roleService.findById(2L).get();
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         userService.save(user);
