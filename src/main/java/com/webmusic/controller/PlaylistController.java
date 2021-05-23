@@ -56,6 +56,12 @@ public class PlaylistController {
 
     @GetMapping("/{id}/{id_song}")
     public ResponseEntity<Song> addSongToPlayList(@PathVariable("id") Long id , @PathVariable("id_song") Long id_song){
+        List<Song> songs = playlistService.findById(id).get().getSongs();
+        for (Song song:songs) {
+            if (song.getId()==id_song){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
         if (iSongService.findById(id_song).isPresent()){
             Song song = iSongService.findById(id_song).get();
             Playlist playlist = playlistService.findById(id).get();
