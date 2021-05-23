@@ -18,7 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Optional;
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class AuthController {
     @Autowired
@@ -44,4 +47,12 @@ public class AuthController {
         return ResponseEntity.ok(jwtResponse);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id){
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()){
+            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
