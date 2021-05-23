@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,19 +34,22 @@ public class AlbumController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
+    public ResponseEntity<Album> addAlbum(@Valid @RequestBody Album album) {
         Album addAlbum = albumService.save(album);
         return new ResponseEntity<>(addAlbum, CREATED);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Album> editAlbum(@RequestBody Album album) {
+    public ResponseEntity<Album> editAlbum(@Valid @RequestBody Album album) {
         Album editAlbum = albumService.save(album);
         return new ResponseEntity<>(editAlbum, OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAlbum(@PathVariable Long id) {
+        if (id == null){
+            return new ResponseEntity<>(NOT_FOUND);
+        }
         albumService.delete(id);
         return new ResponseEntity<>(OK);
     }
