@@ -79,4 +79,9 @@ public class PlaylistController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @GetMapping("userPlayList/{id}")
+    public ResponseEntity<List<Playlist>> getAllPlayListByUserId(@PathVariable Long id){
+        System.out.println(id);
+        return new ResponseEntity<>(playlistService.findPlaylistByUserId(id),HttpStatus.OK);
+    }
 }
