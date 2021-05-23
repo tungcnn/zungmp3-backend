@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RequestMapping("/api")
+@CrossOrigin("*")
 @RestController
 @CrossOrigin("*")
 public class GuestController {
