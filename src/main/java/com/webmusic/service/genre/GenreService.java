@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class GenreService implements IGenreService {
 
-    @Autowired
     private GenreRepository genreRepository;
+
+    @Autowired
+    public GenreService(GenreRepository genreRepository) {
+        this.genreRepository = genreRepository;
+    }
 
     @Override
     public List<Genre> getAll() {
