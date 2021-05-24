@@ -79,6 +79,10 @@ public class PlaylistController {
        Playlist editPlayList = playlistService.findById(id).get();
         if (playlistService.findById(id).isPresent()){
             playlist.setId(editPlayList.getId());
+            playlist.setUser(editPlayList.getUser());
+            playlist.setSongs(editPlayList.getSongs());
+            playlist.setDescription(editPlayList.getDescription());
+            playlist.setViews(editPlayList.getViews());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
         }
