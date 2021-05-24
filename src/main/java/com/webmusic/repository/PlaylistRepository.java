@@ -9,4 +9,5 @@ import java.util.List;
 public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     @Query(value = "select * from Playlist where user_id = ?1",nativeQuery = true)
     List<Playlist> findPlaylistByUserId(Long id);
+    List<Playlist> findByNameContains(String name);
 }

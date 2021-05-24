@@ -1,6 +1,10 @@
 package com.webmusic.controller;
 
+import com.webmusic.model.Playlist;
+import com.webmusic.model.Singer;
 import com.webmusic.model.Song;
+import com.webmusic.service.playlist.IPlaylistService;
+import com.webmusic.service.singer.ISingerService;
 import com.webmusic.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +30,10 @@ public class SongController {
     public SongController(ISongService songService) {
         this.songService = songService;
     }
+    @Autowired
+    private IPlaylistService playlistService;
+    @Autowired
+    private ISingerService iSingerService;
 
     @GetMapping("/{id}") // FindById Song
     public ResponseEntity<Song> getSongById(@PathVariable Long id) {
@@ -71,13 +80,17 @@ public class SongController {
     public ResponseEntity<List<Song>> getLatest() {
         return new ResponseEntity<>(songService.getLastestSongs(), OK);
     }
+
     @PostMapping("/search")
-    public ResponseEntity<Page<Song>> findByName(@RequestBody Song song , Pageable pageable){
-        if (song.getName()!= null || song.getName().equals("")) {
+    public ResponseEntity<List<?>> findByName(@RequestBody Song song , Pageable pageable){
+            List<Object> list = new ArrayList<>();
             Page<Song> songs = songService.findByNameContains(song.getName(), pageable);
             List<Song> songList = songs.getContent();
-            return new ResponseEntity(songList, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(NOT_FOUND);
+            List<Playlist> playlists = playlistService.findByNameContains(song.getName());
+            List<Singer> singers = iSingerService.findByNameContains(song.getName());
+            list.add(songList);
+            list.add(playlists);
+            list.add(singers);
+            return new ResponseEntity(list, HttpStatus.OK);
     }
 }
