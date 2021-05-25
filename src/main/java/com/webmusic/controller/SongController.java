@@ -9,7 +9,6 @@ import com.webmusic.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ import static org.springframework.http.HttpStatus.*;
 @CrossOrigin("*")
 @RequestMapping("/songs")
 public class SongController {
-    private ISongService songService;
+    ISongService songService;
 
     @Autowired
     public SongController(ISongService songService) {
@@ -35,7 +34,7 @@ public class SongController {
     @Autowired
     private ISingerService iSingerService;
 
-    @GetMapping("/{id}") // FindById Song
+    @GetMapping("find/{id}") // FindById Song
     public ResponseEntity<Song> getSongById(@PathVariable Long id) {
         Optional<Song> song = songService.findById(id);
         if (song.isPresent()) {
@@ -78,6 +77,7 @@ public class SongController {
         songService.delete(id);
         return new ResponseEntity<>(OK);
     }
+
     @GetMapping("/top15")
     public ResponseEntity<List<Song>> getTop15() {
         return new ResponseEntity<>(songService.getTop15(), OK);
@@ -89,15 +89,20 @@ public class SongController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<?>> findByName(@RequestBody Song song , Pageable pageable){
-            List<Object> list = new ArrayList<>();
+    public ResponseEntity<Page<Song>> findByName(@RequestBody Song song, Pageable pageable) {
+        if (song.getName() != null || song.getName().equals("")) {
             Page<Song> songs = songService.findByNameContains(song.getName(), pageable);
             List<Song> songList = songs.getContent();
-            List<Playlist> playlists = playlistService.findByNameContains(song.getName());
-            List<Singer> singers = iSingerService.findByNameContains(song.getName());
-            list.add(songList);
-            list.add(playlists);
-            list.add(singers);
-            return new ResponseEntity(list, HttpStatus.OK);
+            return new ResponseEntity(songList, OK);
+        }
+        return new ResponseEntity<>(NOT_FOUND);
     }
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<Object>> getAlbumById(@PathVariable Long id,Pageable page) {
+        Page<Object> getSongs = songService.getSongById(id, page);
+        List<Object> songs = getSongs.getContent();
+        return new ResponseEntity<>(songs, OK);
+    }
+
 }
