@@ -18,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin("*")
@@ -41,8 +44,28 @@ public class AuthController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername()).get();
-        JwtResponse jwtResponse = new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getFullName(), userDetails.getAuthorities());
+        JwtResponse jwtResponse = new JwtResponse(
+                jwt,
+                currentUser.getId(),
+                currentUser.getFullName(),
+                currentUser.getUsername(),
+                currentUser.getPassword(),
+                currentUser.getEmail(),
+                userDetails.getAuthorities());
         return ResponseEntity.ok(jwtResponse);
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id){
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()){
+            return new ResponseEntity<>(user.get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+//        refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
+//        return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
+//    }
 }
+
