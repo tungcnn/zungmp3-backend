@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class SongService implements ISongService {
-    private SongRepository songRepository;
+    SongRepository songRepository;
 
     @Autowired
     public SongService(SongRepository songRepository) {
@@ -48,14 +48,20 @@ public class SongService implements ISongService {
 
     @Override
     public List<Song> getLastestSongs() {
-       return songRepository.getLatestSong();
+        return songRepository.getLatestSong();
     }
+
     public Page<Song> findByNameContains(String name, Pageable pageable) {
-        return this.songRepository.findByNameContains(name , pageable);
+        return this.songRepository.findByNameContains(name, pageable);
     }
 
     @Override
     public Page<Song> getSongByUser(Long id, Pageable pageable) {
         return this.songRepository.getSongByUser(id, pageable);
+    }
+
+    @Override
+    public Page<Object> getSongById(Long id, Pageable pageable) {
+        return this.songRepository.getSongById(id, pageable);
     }
 }

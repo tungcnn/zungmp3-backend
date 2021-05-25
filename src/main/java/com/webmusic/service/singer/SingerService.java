@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class SingerService implements ISingerService {
-    private SingerRepository singerRepository;
+    SingerRepository singerRepository;
 
     @Autowired
     public SingerService(SingerRepository singerRepository) {
