@@ -41,9 +41,6 @@ public class Song {
     private Collection<Singer> singers;
 
     @ManyToOne
-    private Album album;
-
-    @ManyToOne
     private Genre genre;
 
     @ManyToOne

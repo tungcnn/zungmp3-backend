@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IPlaylistService extends IGeneral<Playlist> {
     List<Playlist> findPlaylistByUserId(Long id);
+    List<Playlist> findByNameContains(String name);
 }

@@ -1,6 +1,10 @@
 package com.webmusic.controller;
 
+import com.webmusic.model.Playlist;
+import com.webmusic.model.Singer;
 import com.webmusic.model.Song;
+import com.webmusic.service.playlist.IPlaylistService;
+import com.webmusic.service.singer.ISingerService;
 import com.webmusic.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +29,10 @@ public class SongController {
     public SongController(ISongService songService) {
         this.songService = songService;
     }
+    @Autowired
+    private IPlaylistService playlistService;
+    @Autowired
+    private ISingerService iSingerService;
 
     @GetMapping("find/{id}") // FindById Song
     public ResponseEntity<Song> getSongById(@PathVariable Long id) {
