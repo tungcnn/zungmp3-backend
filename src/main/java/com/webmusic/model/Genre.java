@@ -20,8 +20,4 @@ public class Genre {
 
     @NotBlank
     private String name;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "genres")
-    private Collection<Song> songs;
 }

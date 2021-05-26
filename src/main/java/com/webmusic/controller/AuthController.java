@@ -18,17 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
-
 import static javax.security.auth.callback.ConfirmationCallback.OK;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin("*")
+@RequestMapping("/api")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -59,6 +57,7 @@ public class AuthController {
                 userDetails.getAuthorities());
         return ResponseEntity.ok(jwtResponse);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id){
         Optional<User> user = userService.findById(id);

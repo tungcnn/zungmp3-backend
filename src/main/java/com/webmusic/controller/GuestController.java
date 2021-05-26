@@ -19,8 +19,8 @@ import java.util.Optional;
 import java.util.Set;
 
 @RequestMapping("/api")
-@RestController
 @CrossOrigin("*")
+@RestController
 public class GuestController {
     @Autowired
     private UserService userService;

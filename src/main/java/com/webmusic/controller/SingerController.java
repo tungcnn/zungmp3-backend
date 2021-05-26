@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.*;
 @CrossOrigin("*")
 @RequestMapping("/singers")
 public class SingerController {
-    private ISingerService singerService;
+    ISingerService singerService;
 
     @Autowired
     public SingerController(ISingerService singerService) {

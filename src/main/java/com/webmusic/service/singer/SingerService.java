@@ -8,12 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class SingerService implements ISingerService {
-    private SingerRepository singerRepository;
+    SingerRepository singerRepository;
 
     @Autowired
     public SingerService(SingerRepository singerRepository) {
@@ -38,5 +39,10 @@ public class SingerService implements ISingerService {
     @Override
     public void delete(Long id) {
         singerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Singer> findByNameContains(String name) {
+        return singerRepository.findByNameContains(name);
     }
 }

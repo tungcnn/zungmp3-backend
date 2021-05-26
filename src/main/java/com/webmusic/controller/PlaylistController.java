@@ -4,6 +4,7 @@ import com.webmusic.model.Playlist;
 import com.webmusic.model.Song;
 import com.webmusic.service.playlist.IPlaylistService;
 import com.webmusic.service.song.ISongService;
+import com.webmusic.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,8 @@ public class PlaylistController {
     private IPlaylistService playlistService;
     @Autowired
     private ISongService iSongService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<List<Playlist>> listPlayList(Pageable pageable){
@@ -33,12 +36,16 @@ public class PlaylistController {
         return new ResponseEntity<>(listPlaylists, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Playlist> createPlayList(@Valid @RequestBody Playlist playlist , BindingResult bindingResult){
+    @PostMapping("/{id}")
+    public ResponseEntity<Playlist> createPlayList(@Valid @RequestBody Playlist playlist , BindingResult bindingResult , @PathVariable Long id){
         if (bindingResult.hasFieldErrors()){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(playlistService.save(playlist),HttpStatus.CREATED);
+        if (userService.findById(id).isPresent()){
+            playlist.setUser(userService.findById(id).get());
+            return new ResponseEntity<>(playlistService.save(playlist),HttpStatus.CREATED);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
@@ -49,6 +56,12 @@ public class PlaylistController {
 
     @GetMapping("/{id}/{id_song}")
     public ResponseEntity<Song> addSongToPlayList(@PathVariable("id") Long id , @PathVariable("id_song") Long id_song){
+        List<Song> songs = playlistService.findById(id).get().getSongs();
+        for (Song song:songs) {
+            if (song.getId()==id_song){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
         if (iSongService.findById(id_song).isPresent()){
             Song song = iSongService.findById(id_song).get();
             Playlist playlist = playlistService.findById(id).get();
@@ -66,6 +79,10 @@ public class PlaylistController {
        Playlist editPlayList = playlistService.findById(id).get();
         if (playlistService.findById(id).isPresent()){
             playlist.setId(editPlayList.getId());
+            playlist.setUser(editPlayList.getUser());
+            playlist.setSongs(editPlayList.getSongs());
+            playlist.setDescription(editPlayList.getDescription());
+            playlist.setViews(editPlayList.getViews());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
         }
@@ -78,5 +95,10 @@ public class PlaylistController {
             return new ResponseEntity<>(playlistService.findById(id).get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("userPlayList/{id}")
+    public ResponseEntity<List<Playlist>> getAllPlayListByUserId(@PathVariable Long id){
+        System.out.println(id);
+        return new ResponseEntity<>(playlistService.findPlaylistByUserId(id),HttpStatus.OK);
     }
 }
