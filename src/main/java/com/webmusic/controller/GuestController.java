@@ -49,12 +49,12 @@ public class GuestController {
         if(!updateUser.isPresent()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        user.setPassword(updateUser.get().getPassword());
+//        user.setPassword(updateUser.get().getPassword());
         Role role = roleService.findById(2L).get();
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
-        user.setUsername(updateUser.get().getUsername());
+//        user.setUsername(updateUser.get().getUsername());
         userService.save(user);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
