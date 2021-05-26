@@ -15,10 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Optional;
+import static javax.security.auth.callback.ConfirmationCallback.OK;
 
 @RestController
 @CrossOrigin("*")
@@ -43,7 +47,14 @@ public class AuthController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername()).get();
-        JwtResponse jwtResponse = new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getFullName(), userDetails.getAuthorities());
+        JwtResponse jwtResponse = new JwtResponse(
+                jwt,
+                currentUser.getId(),
+                currentUser.getFullName(),
+                currentUser.getUsername(),
+                currentUser.getPassword(),
+                currentUser.getEmail(),
+                userDetails.getAuthorities());
         return ResponseEntity.ok(jwtResponse);
     }
 
@@ -55,4 +66,18 @@ public class AuthController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> logout(@RequestBody TokenRequest tokenRequest){
+//        tokenRequest.deleteToken(tokenRequest.getToken());
+//        return ResponseEntity.status(OK).body("Token delete done");
+//    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+        if(auth !=null){
+            new SecurityContextLogoutHandler().logout(request,response,auth);
+        }
+        return "redirect:/login";
+    }
 }
+
