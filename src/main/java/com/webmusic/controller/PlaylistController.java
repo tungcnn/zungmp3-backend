@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -100,5 +101,15 @@ public class PlaylistController {
     public ResponseEntity<List<Playlist>> getAllPlayListByUserId(@PathVariable Long id){
         System.out.println(id);
         return new ResponseEntity<>(playlistService.findPlaylistByUserId(id),HttpStatus.OK);
+    }
+    @DeleteMapping("deleteSong/{id}/{id_PlayList}")
+    public ResponseEntity<Void> DeleteSong(@PathVariable("id") Long id , @PathVariable("id_PlayList") Long playList_id){
+        Optional<Playlist> playlist = playlistService.findById(playList_id);
+        if (playlist.isPresent()){
+            playlist.get().getSongs().removeIf(song -> song.getId().equals(id));
+            playlistService.save(playlist.get());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
