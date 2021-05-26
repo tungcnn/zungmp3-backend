@@ -1,7 +1,5 @@
 package com.webmusic.controller;
 
-import com.webmusic.model.Playlist;
-import com.webmusic.model.Singer;
 import com.webmusic.model.Song;
 import com.webmusic.service.playlist.IPlaylistService;
 import com.webmusic.service.singer.ISingerService;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,15 +21,17 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/songs")
 public class SongController {
     ISongService songService;
+    IPlaylistService playlistService;
+    ISingerService iSingerService;
+
 
     @Autowired
-    public SongController(ISongService songService) {
+    public SongController(ISongService songService, IPlaylistService playlistService, ISingerService iSingerService) {
         this.songService = songService;
+        this.playlistService = playlistService;
+        this.iSingerService = iSingerService;
     }
-    @Autowired
-    private IPlaylistService playlistService;
-    @Autowired
-    private ISingerService iSingerService;
+
 
     @GetMapping("find/{id}") // FindById Song
     public ResponseEntity<Song> getSongById(@PathVariable Long id) {
@@ -99,7 +98,7 @@ public class SongController {
     }
 
     @GetMapping("/list/{id}")
-    public ResponseEntity<List<Object>> getAlbumById(@PathVariable Long id,Pageable page) {
+    public ResponseEntity<List<Object>> getAlbumById(@PathVariable Long id, Pageable page) {
         Page<Object> getSongs = songService.getSongById(id, page);
         List<Object> songs = getSongs.getContent();
         return new ResponseEntity<>(songs, OK);
