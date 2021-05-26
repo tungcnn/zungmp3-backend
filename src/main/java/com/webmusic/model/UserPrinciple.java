@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
     private Long id;
+    private String fullName;
     private String username;
     private String password;
-    private String fullName;
     private String email;
     private Collection<? extends GrantedAuthority> roles;
 
-    public UserPrinciple(Long id, String username, String password, String fullName,
+    public UserPrinciple(Long id, String fullName, String username, String password,
                          String email, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
+        this.fullName = fullName;
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
         this.email = email;
         this.roles = roles;
     }
@@ -32,9 +32,9 @@ public class UserPrinciple implements UserDetails {
         ).collect(Collectors.toList());
         return new UserPrinciple(
                 user.getId(),
+                user.getFullName(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getFullName(),
                 user.getEmail(),
                 authorities
         );
