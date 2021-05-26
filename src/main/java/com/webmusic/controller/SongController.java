@@ -91,6 +91,7 @@ public class SongController {
             list.add(songList);
             list.add(playlists);
             list.add(singers);
+
             return new ResponseEntity(list, HttpStatus.OK);
     }
 }
