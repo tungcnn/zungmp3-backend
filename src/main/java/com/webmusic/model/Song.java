@@ -59,4 +59,7 @@ public class Song extends BaseEntity{
 
     @ColumnDefault("false")
     private boolean checkLike;
+
+    @ManyToMany
+    private Collection<Tag> tags;
 }
