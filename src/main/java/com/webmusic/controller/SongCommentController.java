@@ -31,9 +31,9 @@ public class SongCommentController {
         return new ResponseEntity<>(newComment, CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<SongComment>> getComment(Pageable page) {
-        Page<SongComment> getAll = commentSongService.getAll(page);
+    @GetMapping("/{id}")
+    public ResponseEntity<List<SongComment>> getComment(@PathVariable("id") Long id, Pageable page) {
+        Page<SongComment> getAll = commentSongService.getAllComment(id, page);
         List<SongComment> comments = getAll.getContent();
         return new ResponseEntity<>(comments,OK);
     }
