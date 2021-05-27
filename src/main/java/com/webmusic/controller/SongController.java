@@ -25,15 +25,17 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/songs")
 public class SongController {
     ISongService songService;
+    IPlaylistService playlistService;
+    ISingerService iSingerService;
+
 
     @Autowired
-    public SongController(ISongService songService) {
+    public SongController(ISongService songService, IPlaylistService playlistService, ISingerService iSingerService) {
         this.songService = songService;
+        this.playlistService = playlistService;
+        this.iSingerService = iSingerService;
     }
-    @Autowired
-    private IPlaylistService playlistService;
-    @Autowired
-    private ISingerService iSingerService;
+
 
     @GetMapping("find/{id}") // FindById Song
     public ResponseEntity<Song> getSongById(@PathVariable Long id) {
@@ -103,7 +105,7 @@ public class SongController {
     }
 
     @GetMapping("/list/{id}")
-    public ResponseEntity<List<Object>> getAlbumById(@PathVariable Long id,Pageable page) {
+    public ResponseEntity<List<Object>> getAlbumById(@PathVariable Long id, Pageable page) {
         Page<Object> getSongs = songService.getSongById(id, page);
         List<Object> songs = getSongs.getContent();
         return new ResponseEntity<>(songs, OK);

@@ -2,6 +2,7 @@ package com.webmusic.repository;
 
 import com.webmusic.model.Playlist;
 import com.webmusic.model.Song;
+import com.webmusic.model.SongComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

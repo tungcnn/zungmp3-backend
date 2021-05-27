@@ -10,16 +10,16 @@ import java.time.ZonedDateTime;
 
 @Data
 public abstract class BaseEntity {
-//    @JsonIgnore
-//    @CreatedBy
-//    private String createdBy;
-//    @JsonIgnore
-//    @CreatedDate
-//    private ZonedDateTime createdDate;
-//    @JsonIgnore
-//    @LastModifiedBy
-//    private String updatedBy;
-//    @JsonIgnore
-//    @LastModifiedDate
-//    private ZonedDateTime updatedDate;
+    @JsonIgnore
+    @CreatedBy
+    private String createdBy;
+    @JsonIgnore
+    @CreatedDate
+    private ZonedDateTime createdDate;
+    @JsonIgnore
+    @LastModifiedBy
+    private String updatedBy;
+    @JsonIgnore
+    @LastModifiedDate
+    private ZonedDateTime updatedDate;
 }
