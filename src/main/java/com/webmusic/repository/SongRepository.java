@@ -1,6 +1,7 @@
 package com.webmusic.repository;
 
 import com.webmusic.model.Song;
+import com.webmusic.model.SongComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,5 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query(value = "select s.name, s.id,s.cover_url,s.lyrics,s.url,s.views from song s " +
             "join song_singers sg on s.id = sg.songs_id where sg.singers_id = ?1 ", nativeQuery = true)
     Page<Object> getSongById(Long id, Pageable pageable);
+
 }
