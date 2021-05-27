@@ -1,5 +1,7 @@
 package com.webmusic.controller;
 
+import com.webmusic.model.Playlist;
+import com.webmusic.model.Singer;
 import com.webmusic.model.Song;
 import com.webmusic.service.playlist.IPlaylistService;
 import com.webmusic.service.singer.ISingerService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
