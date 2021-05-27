@@ -29,7 +29,7 @@ public class Playlist extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @ColumnDefault("0")
+    @Column(columnDefinition = "integer default 0")
     private Long views;
 
     private String description;
@@ -37,7 +37,7 @@ public class Playlist extends BaseEntity {
     @ColumnDefault("false")
     private boolean checkLike;
 
-    @ColumnDefault("0")
+    @Column(columnDefinition = "integer default 0")
     private Long LikeTotal;
 
 }
