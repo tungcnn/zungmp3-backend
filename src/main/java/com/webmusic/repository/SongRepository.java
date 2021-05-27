@@ -1,5 +1,6 @@
 package com.webmusic.repository;
 
+import com.webmusic.model.Playlist;
 import com.webmusic.model.Song;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,4 +26,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query(value = "select s.name, s.id,s.cover_url,s.lyrics,s.url,s.views from song s " +
             "join song_singers sg on s.id = sg.songs_id where sg.singers_id = ?1 ", nativeQuery = true)
     Page<Object> getSongById(Long id, Pageable pageable);
+
+    @Query(value = "select * from song order by like_total desc limit 15" , nativeQuery = true)
+    List<Song> top15Like();
 }

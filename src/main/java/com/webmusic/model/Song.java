@@ -59,4 +59,7 @@ public class Song {
 
     @ColumnDefault("false")
     private boolean checkLike;
+
+    @ColumnDefault("0")
+    private Long LikeTotal;
 }

@@ -10,4 +10,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     @Query(value = "select * from Playlist where user_id = ?1",nativeQuery = true)
     List<Playlist> findPlaylistByUserId(Long id);
     List<Playlist> findByNameContains(String name);
+    @Query(value = "select * from Playlist order by views desc limit 15" , nativeQuery = true)
+    List<Playlist> top15Views();
+    @Query(value = "select * from Playlist order by like_total desc limit 15" , nativeQuery = true)
+    List<Playlist> top15Like();
 }

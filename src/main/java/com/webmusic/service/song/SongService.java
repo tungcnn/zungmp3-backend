@@ -1,5 +1,6 @@
 package com.webmusic.service.song;
 
+import com.webmusic.model.Playlist;
 import com.webmusic.model.Song;
 import com.webmusic.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +65,10 @@ public class SongService implements ISongService {
     public Page<Object> getSongById(Long id, Pageable pageable) {
         return this.songRepository.getSongById(id, pageable);
     }
+
+    @Override
+    public List<Song> top15Like() {
+        return songRepository.top15Like();
+    }
+
 }

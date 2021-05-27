@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface ILikePlayListService {
     List<LikePlayList> checkLike(Long idUser);
     LikePlayList addLike(LikePlayList like);
-    void unLike(LikePlayList like);
-    LikePlayList findByPlayListId(Long id);
+    void unLike(LikePlayList like );
+    LikePlayList findByPlayListId(Long id , Long idUser);
 }

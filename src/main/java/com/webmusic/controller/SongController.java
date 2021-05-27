@@ -109,4 +109,9 @@ public class SongController {
         return new ResponseEntity<>(songs, OK);
     }
 
+    @GetMapping("top15Likes")
+    public ResponseEntity<?> getTop15Likes(){
+        return new ResponseEntity<>(songService.top15Like(), OK);
+    }
+
 }

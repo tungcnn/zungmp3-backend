@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,8 +83,6 @@ public class PlaylistController {
             playlist.setId(editPlayList.getId());
             playlist.setUser(editPlayList.getUser());
             playlist.setSongs(editPlayList.getSongs());
-            playlist.setDescription(editPlayList.getDescription());
-            playlist.setViews(editPlayList.getViews());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
         }
@@ -111,5 +110,14 @@ public class PlaylistController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/top15views")
+    public ResponseEntity<List<Playlist>> getTop15Views(){
+        return new ResponseEntity<>(playlistService.top15Views(),HttpStatus.OK);
+    }
+
+    @GetMapping("/top15likes")
+    public ResponseEntity<List<Playlist>> getTop15Likes(){
+        return new ResponseEntity<>(playlistService.top15Like(),HttpStatus.OK);
     }
 }
