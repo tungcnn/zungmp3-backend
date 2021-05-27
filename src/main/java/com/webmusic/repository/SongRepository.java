@@ -15,7 +15,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query(value = "select * from song order by views desc limit 15", nativeQuery = true)
     List<Song> getTop15();
 
-    @Query(value = "select * from song where (DATEDIFF(CURDATE(), release_date)) < 14 order by release_date desc ", nativeQuery = true)
+    @Query(value = "select * from song order by release_date desc limit 15", nativeQuery = true)
     List<Song> getLatestSong();
 
     Page<Song> findByNameContains(String name, Pageable pageable);
