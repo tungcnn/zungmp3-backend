@@ -29,15 +29,13 @@ public class Playlist extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @Column(columnDefinition = "integer default 0")
-    private Long views;
+    private Long views = 0L;
 
     private String description;
 
     @ColumnDefault("false")
     private boolean checkLike;
 
-    @Column(columnDefinition = "integer default 0")
-    private Long LikeTotal;
+    private Long LikeTotal = 0L;
 
 }
