@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ICommentSongService extends IGeneral<SongComment> {
-    Page<SongComment> getAllComent(Pageable pageable);
+    Page<SongComment> getAllComment(Long id, Pageable pageable);
 }

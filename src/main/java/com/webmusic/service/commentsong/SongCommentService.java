@@ -40,7 +40,7 @@ public class SongCommentService implements ICommentSongService {
     }
 
     @Override
-    public Page<SongComment> getAllComent( Pageable pageable) {
-        return songComentRepository.getSongCommet(pageable);
+    public Page<SongComment> getAllComment(Long id, Pageable pageable) {
+        return songComentRepository.getSongComment(id, pageable);
     }
 }
