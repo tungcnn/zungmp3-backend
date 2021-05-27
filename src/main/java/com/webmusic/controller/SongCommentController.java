@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -27,7 +28,7 @@ public class SongCommentController {
     @PostMapping
     public ResponseEntity<SongComment> addComment(@RequestBody SongComment songComment) {
         SongComment newComment = commentSongService.save(songComment);
-        return new ResponseEntity<>(newComment, OK);
+        return new ResponseEntity<>(newComment, CREATED);
     }
 
     @GetMapping
