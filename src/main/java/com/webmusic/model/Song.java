@@ -57,12 +57,12 @@ public class Song extends BaseEntity{
     @ManyToOne
     private User user;
 
-    @ColumnDefault("false")
+    @Column(columnDefinition = "boolean default false")
     private boolean checkLike;
 
     @ManyToMany
     private Collection<Tag> tags;
-  
-    @ColumnDefault("0")
+
+    @Column(columnDefinition = "integer default 0")
     private Long LikeTotal;
 }
