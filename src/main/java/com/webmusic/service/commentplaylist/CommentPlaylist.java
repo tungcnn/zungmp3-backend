@@ -1,12 +1,14 @@
 package com.webmusic.service.commentplaylist;
 
 import com.webmusic.model.PlaylistComment;
+import com.webmusic.model.SongComment;
 import com.webmusic.repository.PlayCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +38,10 @@ public class CommentPlaylist implements ICommentPlaylist {
     @Override
     public void delete(Long id) {
         playCommentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PlaylistComment> getPlayListCommet(Long id) {
+        return playCommentRepository.getPlayListCommet(id);
     }
 }

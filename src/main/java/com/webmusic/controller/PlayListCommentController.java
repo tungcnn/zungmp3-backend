@@ -3,8 +3,6 @@ package com.webmusic.controller;
 import com.webmusic.model.PlaylistComment;
 import com.webmusic.service.commentplaylist.ICommentPlaylist;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,16 +23,15 @@ public class PlayListCommentController {
         this.commentPlaylist = commentPlaylist;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PlaylistComment>> getComment(Pageable page) {
-        Page<PlaylistComment> allcomment = commentPlaylist.getAll(page);
-        List<PlaylistComment> getall = allcomment.getContent();
-        return new ResponseEntity<>(getall, OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<List<PlaylistComment>> getComment(@PathVariable Long id) {
+        List<PlaylistComment> list = commentPlaylist.getPlayListCommet(id);
+        return new ResponseEntity<>(list, OK);
     }
 
     @PostMapping
     public ResponseEntity<PlaylistComment> addComment(@RequestBody PlaylistComment playlistComment) {
         PlaylistComment comment = commentPlaylist.save(playlistComment);
-        return new ResponseEntity<>(comment,CREATED);
+        return new ResponseEntity<>(comment, CREATED);
     }
 }
