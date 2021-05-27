@@ -27,13 +27,11 @@ public class LikePlayListService implements ILikePlayListService {
 
     @Override
     public void unLike(LikePlayList likePlayList) {
-        iLikePlayListRepository.delete(likePlayList);
+        iLikePlayListRepository.deleteById(likePlayList.getId());
     }
 
     @Override
-    public LikePlayList findByPlayListId(Long id) {
-        return iLikePlayListRepository.findByPlayListId(id);
+    public LikePlayList findByPlayListId(Long id , Long idUser) {
+        return iLikePlayListRepository.findByPlayListId(id ,idUser);
     }
-
-
 }

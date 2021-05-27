@@ -42,9 +42,9 @@ public class LikeSongController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("/{id_song}")
-    public ResponseEntity<Void> remove(@PathVariable Long id_song) {
-        LikeSong likeSong = iLikeSongService.findBySongId(id_song);
+    @DeleteMapping("/{id_song}/{idUser}")
+    public ResponseEntity<Void> remove(@PathVariable("id_song") Long id_song , @PathVariable("idUser") Long idUser) {
+        LikeSong likeSong = iLikeSongService.findBySongId(id_song , idUser);
         iLikeSongService.unLike(likeSong);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
