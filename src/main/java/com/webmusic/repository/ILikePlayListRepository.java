@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ILikePlayListRepository extends JpaRepository<LikePlayList , Long> {
     @Query(value = "select * from like_play_list where like_play_list.user_id = ?1 ",nativeQuery = true)
-    List<LikePlayList> checkLike(Long idUser);
-    @Query(value = "select * from like_play_list where playlist_id = ?1",nativeQuery = true)
-    LikePlayList findByPlayListId(Long id);
+    List<LikePlayList> checkLike(Long idUser );
+    @Query(value = "select * from like_play_list where playlist_id = ?1 and like_play_list.user_id = ?2",nativeQuery = true)
+    LikePlayList findByPlayListId(Long id , Long idUser);
 }

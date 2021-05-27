@@ -45,4 +45,14 @@ public class PlaylistService implements IPlaylistService{
     public List<Playlist> findByNameContains(String name) {
         return playlistRepository.findByNameContains(name);
     }
+
+    @Override
+    public List<Playlist> top15Like() {
+        return playlistRepository.top15Like();
+    }
+
+    @Override
+    public List<Playlist> top15Views() {
+        return playlistRepository.top15Views();
+    }
 }

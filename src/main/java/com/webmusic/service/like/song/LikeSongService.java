@@ -29,7 +29,7 @@ public class LikeSongService implements ILikeSongService {
     }
 
     @Override
-    public LikeSong findBySongId(Long id) {
-        return iLikeSongRepository.findBySongId(id);
+    public LikeSong findBySongId(Long id , Long idUser) {
+        return iLikeSongRepository.findBySongId(id , idUser);
     }
 }

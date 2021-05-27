@@ -1,5 +1,6 @@
 package com.webmusic.service.song;
 
+import com.webmusic.model.Playlist;
 import com.webmusic.model.Song;
 import com.webmusic.service.IGeneral;
 import org.springframework.data.domain.Page;
@@ -17,4 +18,5 @@ public interface ISongService extends IGeneral<Song> {
     Page<Song> getSongByUser(Long id, Pageable pageable);
 
     Page<Object> getSongById(Long id,Pageable pageable);
+    List<Song> top15Like();
 }
