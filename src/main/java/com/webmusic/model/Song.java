@@ -58,8 +58,7 @@ public class Song extends BaseEntity{
     @ManyToOne
     private User user;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean checkLike;
+    private boolean checkLike = false;
 
     @ManyToMany
     private Collection<Tag> tags;

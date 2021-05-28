@@ -36,8 +36,7 @@ public class Playlist extends BaseEntity {
 
     private String description;
 
-    @ColumnDefault("false")
-    private boolean checkLike;
+    private boolean checkLike = false;
 
     private long likeTotalPlayList = 0;
 
