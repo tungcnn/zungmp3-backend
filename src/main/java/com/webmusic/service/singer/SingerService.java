@@ -22,8 +22,8 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public Page<Singer> getAll(Pageable pageable) {
-        return singerRepository.findAll(pageable);
+    public Iterable<Singer> getAll() {
+        return singerRepository.findAll();
     }
 
     @Override

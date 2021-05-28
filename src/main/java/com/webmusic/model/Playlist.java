@@ -30,14 +30,14 @@ public class Playlist extends BaseEntity {
     @ManyToOne
     private User user;
 
-    private Long views;
+    private Long views = 0L;
 
     private String description;
 
     @ColumnDefault("false")
     private boolean checkLike;
 
-    private Long LikeTotal;
+    private Long LikeTotal = 0L;
 
     @Column(name = "date_playList")
     private Date releaseDate;

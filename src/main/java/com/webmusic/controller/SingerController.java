@@ -26,10 +26,8 @@ public class SingerController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Singer>> getAllSinger(Pageable page) {
-        Page<Singer> getAll = singerService.getAll(page);
-        List<Singer> singers = getAll.getContent();
-        return new ResponseEntity<>(singers, OK);
+    public ResponseEntity<Iterable<Singer>> getAllSinger() {
+        return new ResponseEntity<>(singerService.getAll(), OK);
     }
 
     @PostMapping("/add")
