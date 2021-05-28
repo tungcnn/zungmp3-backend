@@ -4,6 +4,7 @@ import com.webmusic.model.SongComment;
 import com.webmusic.service.commentsong.ICommentSongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,10 @@ public class SongCommentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<SongComment>> getComment(@PathVariable("id") Long id, Pageable page) {
+    public ResponseEntity<List<SongComment>> getComment(@PathVariable("id") Long id, Pageable pageable) {
+        Pageable page = PageRequest.of(pageable.getPageNumber(), 1000);
         Page<SongComment> getAll = commentSongService.getAllComment(id, page);
         List<SongComment> comments = getAll.getContent();
-        return new ResponseEntity<>(comments,OK);
+        return new ResponseEntity<>(comments,OK);   
     }
 }

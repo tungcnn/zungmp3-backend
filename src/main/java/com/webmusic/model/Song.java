@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Song extends BaseEntity{
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @CreationTimestamp
     private Date releaseDate;
 
     private String lyrics;

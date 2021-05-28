@@ -8,6 +8,7 @@ import com.webmusic.service.singer.ISingerService;
 import com.webmusic.service.song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +48,15 @@ public class SongController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Song>> getAll(Pageable page) {
-        Page<Song> getAllSong = songService.getAll(page);
+    public ResponseEntity<List<Song>> getAll(Pageable pageable) {
+        Page<Song> getAllSong = songService.getAll(pageable);
         List<Song> songs = getAllSong.getContent();
         return new ResponseEntity<>(songs, OK);
     }
 
     @GetMapping("/all/{id}")
-    public ResponseEntity<List<Song>> getAllById(Pageable page, @PathVariable("id") Long id) {
+    public ResponseEntity<List<Song>> getAllById(Pageable pageable, @PathVariable("id") Long id) {
+        Pageable page = PageRequest.of(pageable.getPageNumber(), 1000);
         Page<Song> getAllSong = songService.getSongByUser(id, page);
         List<Song> songs = getAllSong.getContent();
         return new ResponseEntity<>(songs, OK);
