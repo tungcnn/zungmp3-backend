@@ -10,4 +10,5 @@ public interface IPlaylistService extends IGeneral<Playlist> {
     List<Playlist> findByNameContains(String name);
     List<Playlist> top15Like();
     List<Playlist> top15Views();
+    List<Playlist> getLatestPlayList();
 }

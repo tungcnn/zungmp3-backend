@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,9 @@ public class PlaylistController {
         }
         if (userService.findById(id).isPresent()){
             playlist.setUser(userService.findById(id).get());
+            playlist.setViews(0L);
+            playlist.setReleaseDate(new Date());
+            playlist.setLikeTotal(0L);
             return new ResponseEntity<>(playlistService.save(playlist),HttpStatus.CREATED);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -83,6 +87,9 @@ public class PlaylistController {
             playlist.setId(editPlayList.getId());
             playlist.setUser(editPlayList.getUser());
             playlist.setSongs(editPlayList.getSongs());
+            playlist.setViews(editPlayList.getViews());
+            playlist.setLikeTotal(playlist.getLikeTotal());
+            playlist.setReleaseDate(playlist.getReleaseDate());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
         }
@@ -119,5 +126,10 @@ public class PlaylistController {
     @GetMapping("/top15likes")
     public ResponseEntity<List<Playlist>> getTop15Likes(){
         return new ResponseEntity<>(playlistService.top15Like(),HttpStatus.OK);
+    }
+
+    @GetMapping("/top15Date")
+    public ResponseEntity<?> getTop15Date(){
+        return new ResponseEntity<>(playlistService.getLatestPlayList(),HttpStatus.OK);
     }
 }
