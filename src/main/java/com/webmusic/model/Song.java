@@ -63,6 +63,5 @@ public class Song extends BaseEntity{
     @ManyToMany
     private Collection<Tag> tags;
 
-    @Column(columnDefinition = "integer default 0")
     private Long LikeTotal;
 }

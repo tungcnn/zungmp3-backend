@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,6 @@ public class Playlist extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @Column(columnDefinition = "integer default 0")
     private Long views;
 
     private String description;
@@ -37,7 +37,8 @@ public class Playlist extends BaseEntity {
     @ColumnDefault("false")
     private boolean checkLike;
 
-    @Column(columnDefinition = "integer default 0")
     private Long LikeTotal;
 
+    @Column(name = "date_playList")
+    private Date releaseDate;
 }

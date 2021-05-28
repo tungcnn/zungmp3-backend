@@ -55,4 +55,9 @@ public class PlaylistService implements IPlaylistService{
     public List<Playlist> top15Views() {
         return playlistRepository.top15Views();
     }
+
+    @Override
+    public List<Playlist> getLatestPlayList() {
+        return playlistRepository.getLatestPlayList();
+    }
 }
