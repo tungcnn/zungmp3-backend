@@ -2,7 +2,6 @@ package com.webmusic.controller;
 
 import com.webmusic.model.*;
 import com.webmusic.service.like.song.ILikeSongService;
-import com.webmusic.service.like.song.LikeSongService;
 import com.webmusic.service.song.ISongService;
 import com.webmusic.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,17 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("LikeSong")
 public class LikeSongController {
+
+    ILikeSongService iLikeSongService;
+    ISongService iSongService;
+    IUserService iUserService;
+
     @Autowired
-    private ILikeSongService iLikeSongService;
-    @Autowired
-    private ISongService iSongService;
-    @Autowired
-    private IUserService iUserService;
+    public LikeSongController(ILikeSongService iLikeSongService, ISongService iSongService, IUserService iUserService) {
+        this.iLikeSongService = iLikeSongService;
+        this.iSongService = iSongService;
+        this.iUserService = iUserService;
+    }
 
     @GetMapping("/{id_user}")
     public ResponseEntity<?> checkLike(@PathVariable("id_user") Long idUser) {
