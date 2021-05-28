@@ -13,7 +13,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     List<Playlist> findByNameContains(String name);
     @Query(value = "select * from Playlist order by views desc limit 15" , nativeQuery = true)
     List<Playlist> top15Views();
-    @Query(value = "select * from Playlist order by like_total desc limit 15" , nativeQuery = true)
+    @Query(value = "select * from Playlist order by like_total_play_list desc limit 15" , nativeQuery = true)
     List<Playlist> top15Like();
     @Query(value = "select * from Playlist order by date_play_list desc limit 15 ", nativeQuery = true)
     List<Playlist> getLatestPlayList();
