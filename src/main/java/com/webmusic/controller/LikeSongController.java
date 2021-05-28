@@ -35,7 +35,7 @@ public class LikeSongController {
         Optional<Song> song = iSongService.findById(id_Song);
         Optional<User> user = iUserService.findById(id);
         if (song.isPresent() && user.isPresent()) {
-            song.get().setLikeTotal(song.get().getLikeTotal()+1);
+            song.get().setLikeTotalSong(song.get().getLikeTotalSong()+1);
             iSongService.save(song.get());
             LikeSong like = new LikeSong();
             like.setSong(song.get());
@@ -50,7 +50,7 @@ public class LikeSongController {
         if (song.isPresent()) {
             LikeSong likeSong = iLikeSongService.findBySongId(id_song , idUser);
             iLikeSongService.unLike(likeSong);
-            song.get().setLikeTotal(song.get().getLikeTotal()-1);
+            song.get().setLikeTotalSong(song.get().getLikeTotalSong()-1);
             iSongService.save(song.get());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

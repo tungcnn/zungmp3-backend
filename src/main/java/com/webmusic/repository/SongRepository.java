@@ -28,6 +28,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             "join song_singers sg on s.id = sg.songs_id where sg.singers_id = ?1 ", nativeQuery = true)
     Page<Object> getSongById(Long id, Pageable pageable);
 
-    @Query(value = "select * from song order by like_total desc limit 15" , nativeQuery = true)
+    @Query(value = "select * from song order by like_total_song desc limit 15" , nativeQuery = true)
     List<Song> top15Like();
 }
