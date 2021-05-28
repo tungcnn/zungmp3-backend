@@ -36,7 +36,7 @@ public class LikePlayListController {
         Optional<Playlist> playlist = playlistService.findById(id_PlayList);
         Optional<User> user = userService.findById(id);
         if (playlist.isPresent() && user.isPresent()) {
-            playlist.get().setLikeTotal(playlist.get().getLikeTotal()+1);
+            playlist.get().setLikeTotalPlayList(playlist.get().getLikeTotalPlayList()+1);
             playlistService.save(playlist.get());
             LikePlayList like = new LikePlayList();
             like.setPlaylist(playlist.get());
@@ -52,7 +52,7 @@ public class LikePlayListController {
         if (playlist.isPresent()) {
             LikePlayList likePlayList = likePlayListService.findByPlayListId(id_playList , idUser);
             likePlayListService.unLike(likePlayList);
-            playlist.get().setLikeTotal(playlist.get().getLikeTotal()-1);
+            playlist.get().setLikeTotalPlayList(playlist.get().getLikeTotalPlayList()-1);
             playlistService.save(playlist.get());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

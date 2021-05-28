@@ -37,7 +37,7 @@ public class Playlist extends BaseEntity {
     @ColumnDefault("false")
     private boolean checkLike;
 
-    private Long LikeTotal = 0L;
+    private long likeTotalPlayList = 0;
 
     @Column(name = "date_playList")
     private Date releaseDate;

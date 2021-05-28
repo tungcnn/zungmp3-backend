@@ -48,7 +48,7 @@ public class PlaylistController {
             playlist.setUser(userService.findById(id).get());
             playlist.setViews(0L);
             playlist.setReleaseDate(new Date());
-            playlist.setLikeTotal(0L);
+            playlist.setLikeTotalPlayList(0L);
             return new ResponseEntity<>(playlistService.save(playlist),HttpStatus.CREATED);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -88,7 +88,7 @@ public class PlaylistController {
             playlist.setUser(editPlayList.getUser());
             playlist.setSongs(editPlayList.getSongs());
             playlist.setViews(editPlayList.getViews());
-            playlist.setLikeTotal(playlist.getLikeTotal());
+            playlist.setLikeTotalPlayList(playlist.getLikeTotalPlayList());
             playlist.setReleaseDate(playlist.getReleaseDate());
             playlistService.save(playlist);
             return new ResponseEntity<>(playlist,HttpStatus.OK);
