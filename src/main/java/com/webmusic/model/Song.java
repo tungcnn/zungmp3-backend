@@ -1,32 +1,68 @@
 package com.webmusic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import javax.validation.constraints.NotBlank;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "song")
-public class Song {
+public class Song extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @CreationTimestamp
+    private Date releaseDate;
+
     private String lyrics;
-    private String filename;
+
+    @NotBlank(message = "Filename is mandatory")
+    private String url;
+
+    private String coverUrl;
+
+    private long views = 0;
+
     @ManyToMany
-    private List<Singer> singers;
+    private Collection<Singer> singers;
+
     @ManyToOne
-    private Album album;
+    private Genre genre;
+
+    @ManyToOne
+    private Theme theme;
+
+    @ManyToOne
+    private Country country;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "songs")
+    private Collection<Playlist> playlists;
+
+    @ManyToOne
+    private User user;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean checkLike;
+
     @ManyToMany
-    private List<Genre> genres;
-    @ManyToMany
-    private List<Playlist> playlists;
+    private Collection<Tag> tags;
+
+    private Long likeTotalSong = 0L;
 }
