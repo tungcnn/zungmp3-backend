@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface IUserService extends IGeneral<User> , UserDetailsService {
     Optional<User> findByUsername(String username);
+    Boolean existByEmail(String email);
+    User findByEmail(String email);
 }
